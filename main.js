@@ -71,20 +71,14 @@
     const lines = $$('.h-copy h1 .ln > span');
     gsap.set(lines, { y: 0, yPercent: 105 }); // y:0 clears the px offset GSAP would read from the CSS intro state
     gsap.set(['.h-copy .lead', '.hero .ctas'], { autoAlpha: 0, y: 18 });
-    gsap.set('.mirror', { clipPath: 'circle(0% at 50% 50%)' });
-    gsap.set('.mirror .glass img', { scale: 1.25 });
     gsap.set('.badge', { autoAlpha: 0, scale: 0.6, rotate: -40 });
     finishIntro();
     gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.1 })
-      .to('.mirror', { clipPath: 'circle(50% at 50% 50%)', duration: 1.5, ease: 'expo.inOut' }, 0)
-      .to('.mirror .glass img', { scale: 1, duration: 2.2, ease: 'power3.out' }, 0.2)
       .to(lines, { yPercent: 0, duration: 1.2, stagger: 0.11 }, 0.35)
       .to('.h-copy .lead', { autoAlpha: 1, y: 0, duration: 1 }, 0.85)
       .to('.hero .ctas', { autoAlpha: 1, y: 0, duration: 1 }, 1)
       .to('.badge', { autoAlpha: 1, scale: 1, rotate: 0, duration: 1.2, ease: 'back.out(1.6)' }, 1.05);
 
-    /* mirror reflection drifts slowly while scrolling past the hero */
-    gsap.to('.mirror .glass img', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
   } else {
     finishIntro();
   }
@@ -196,80 +190,79 @@
     }
   });
 
-  /* ---------- SMS ticket ---------- */
-  const form = $('#sms');
-  if (form) {
-    const dayBox = $('#day');
-    const SHORT = ['niedz.', 'pon.', 'wt.', 'śr.', 'czw.', 'pt.', 'sob.'];
-    const mk = (val, label, checked) => {
-      const l = document.createElement('label'); l.className = 'chip';
-      l.innerHTML = `<input type="radio" name="dzien" value="${val}"${checked ? ' checked' : ''}><span>${label}</span>`;
-      dayBox.appendChild(l);
+  const full3d = hasGsap && !reduce;
+  if (!full3d) doc.classList.add('no-3d');
+
+  /* ---------- through the mirror: the round mirror tilts toward you and swallows the screen ---------- */
+  const mirror = $('.th-mirror');
+  if (mirror && full3d) {
+    const img = $('.th-glass img');
+    const copy = $('.th-copy');
+    const fill = () => {
+      const r = mirror.getBoundingClientRect();
+      const size = r.width || 1;
+      return (Math.hypot(innerWidth, innerHeight) / size) * 1.08;
     };
-    mk('jak najszybciej', 'Jak najszybciej', true);
-    const base = new Date();
-    let added = 0;
-    for (let k = 1; k < 10 && added < 5; k++) {
-      const d = new Date(base); d.setDate(base.getDate() + k);
-      const wd = d.getDay();
-      if (!Array.isArray(HOURS.slowianska[wd])) continue;
-      const dm = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}`;
-      mk(`${DAYS[wd].toLowerCase()} ${dm}`, `${SHORT[wd]} ${dm}`, false);
-      added++;
-    }
-    const out = $('#smsText'), btn = $('#smsBtn');
-    const compose = () => {
-      const svc = $$('input[name="svc"]:checked', form).map((i) => i.value);
-      const dzien = ($('input[name="dzien"]:checked', form) || {}).value || 'jak najszybciej';
-      const pora = ($('input[name="pora"]:checked', form) || {}).value || 'obojętnie';
-      const imie = $('#imie').value.trim();
-      const lines = [
-        'Dzień dobry, chciałbym się zapisać na wizytę w salonie przy Słowiańskiej.',
-        `Usługa: ${svc.length ? svc.join(', ') : 'do ustalenia'}`,
-        `Termin: ${dzien}${pora !== 'obojętnie' ? ', ' + pora : ''}`
-      ];
-      if (imie) lines.push(`Imię: ${imie}`);
-      lines.push('Pozdrawiam');
-      const msg = lines.join('\n');
-      out.textContent = msg;
-      btn.href = 'sms:+48503713441?&body=' + encodeURIComponent(msg);
-    };
-    form.addEventListener('input', compose);
-    form.addEventListener('change', compose);
-    form.addEventListener('submit', (e) => e.preventDefault());
-    compose();
+    gsap.set(mirror, { scale: 0.62, rotateX: 42, rotateY: -16, rotateZ: -6, y: 40 });
+    gsap.set(copy, { autoAlpha: 0, y: 40 });
+    gsap.timeline({ scrollTrigger: { trigger: '.through', start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true } })
+      .to(mirror, { rotateX: 0, rotateY: 0, rotateZ: 0, y: 0, scale: 1, ease: 'power2.inOut', duration: 0.35 })
+      .to(mirror, { scale: () => fill(), ease: 'power3.in', duration: 0.45 })
+      .to(img, { scale: 1, ease: 'none', duration: 0.8 }, 0)
+      .to(copy, { autoAlpha: 1, y: 0, ease: 'power2.out', duration: 0.18 }, 0.04);
   }
 
-  /* ---------- AccordionGallery (React Bits) ---------- */
-  const acc = $('#acc');
-  if (acc) {
-    const panels = $$('.pn', acc);
-    const wide = window.matchMedia('(min-width: 761px)');
-    let active = panels.findIndex((p) => p.classList.contains('on'));
-    const layout = (animate) => {
-      if (!wide.matches) { panels.forEach((p) => { p.style.flexGrow = ''; p.style.transform = ''; }); return; }
-      const grow = (0.5 * (panels.length - 1)) / 0.5;
-      panels.forEach((p, i) => {
-        const on = i === active;
-        p.classList.toggle('on', on);
-        const props = { flexGrow: on ? grow : 1, rotateY: on ? 0 : i < active ? 7 : -7, duration: animate && hasGsap && !reduce ? 0.7 : 0, ease: 'power3.out' };
-        if (hasGsap) gsap.to(p, props); else { p.style.flexGrow = props.flexGrow; }
+  /* ---------- price card: flips up like a menu set on the table, then follows the cursor ---------- */
+  const tiltWrap = $('[data-tilt]');
+  if (tiltWrap && full3d) {
+    const card = $('.menu', tiltWrap);
+    gsap.fromTo(card, { rotateX: 58, y: 120, transformOrigin: '50% 100%' }, { rotateX: 0, y: 0, ease: 'none', scrollTrigger: { trigger: tiltWrap, start: 'top 95%', end: 'top 35%', scrub: 0.8 } });
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const rx = gsap.quickTo(card, 'rotationY', { duration: 0.6, ease: 'power3' });
+      const ry = gsap.quickTo(card, 'rotationX', { duration: 0.6, ease: 'power3' });
+      tiltWrap.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        rx((px - 0.5) * 7); ry((0.5 - py) * 5);
+        card.style.setProperty('--gx', `${px * 100}%`); card.style.setProperty('--gy', `${py * 100}%`); card.style.setProperty('--go', 1);
       });
-    };
-    panels.forEach((p, i) => {
-      p.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse' && active !== i) { active = i; layout(true); } });
-      p.addEventListener('focus', () => { if (active !== i) { active = i; layout(true); } });
-      p.addEventListener('click', () => { if (active !== i) { active = i; layout(true); } });
-      p.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-          e.preventDefault();
-          const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + panels.length) % panels.length;
-          panels[n].focus();
-        }
-      });
+      tiltWrap.addEventListener('pointerleave', () => { rx(0); ry(0); card.style.setProperty('--go', 0); });
+    }
+  }
+
+  /* salon cards lean toward the cursor (TiltedCard, React Bits) */
+  if (full3d && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    $$('.salon').forEach((c) => {
+      gsap.set(c, { transformPerspective: 1400 });
+      const rx = gsap.quickTo(c, 'rotationY', { duration: 0.7, ease: 'power3' });
+      const ry = gsap.quickTo(c, 'rotationX', { duration: 0.7, ease: 'power3' });
+      c.addEventListener('pointermove', (e) => { const r = c.getBoundingClientRect(); rx(((e.clientX - r.left) / r.width - 0.5) * 6); ry((0.5 - (e.clientY - r.top) / r.height) * 4); });
+      c.addEventListener('pointerleave', () => { rx(0); ry(0); });
     });
-    layout(false);
-    wide.addEventListener('change', () => layout(false));
+  }
+
+  /* ---------- 3D ring gallery: scroll turns it, drag spins it with inertia ---------- */
+  const carousel = $('#carousel');
+  if (carousel && full3d) {
+    const figs = $$('figure', carousel);
+    const n = figs.length;
+    let R = 0, scrollAngle = 0, dragAngle = 0, vel = 0, dragging = false, lastX = 0;
+    const layout = () => {
+      const pw = Math.round(Math.min(330, Math.max(150, innerWidth * 0.36, innerHeight * 0.28)));
+      carousel.style.setProperty('--pw', pw + 'px');
+      R = Math.round((pw / 2) / Math.tan(Math.PI / n) * 1.12);
+      figs.forEach((f, i) => { f.style.transform = `rotateY(${(360 / n) * i}deg) translateZ(${R}px)`; });
+    };
+    const apply = () => { carousel.style.transform = `translateZ(${-R}px) rotateX(-8deg) rotateY(${scrollAngle + dragAngle}deg)`; };
+    layout(); apply();
+    addEventListener('resize', () => { layout(); apply(); });
+    ScrollTrigger.create({ trigger: '.ringsec', start: 'top top', end: 'bottom bottom', scrub: true, onUpdate: (st) => { scrollAngle = -st.progress * 400; apply(); } });
+    const stage = $('#ring3d');
+    stage.addEventListener('pointerdown', (e) => { dragging = true; lastX = e.clientX; vel = 0; stage.setPointerCapture(e.pointerId); });
+    stage.addEventListener('pointermove', (e) => { if (!dragging) return; const dx = e.clientX - lastX; lastX = e.clientX; vel = dx * 0.35; dragAngle += vel; apply(); });
+    const end = () => { dragging = false; };
+    stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
+    gsap.ticker.add(() => { if (!dragging && Math.abs(vel) > 0.02) { vel *= 0.94; dragAngle += vel; apply(); } });
   }
 
   /* ---------- mobile call bar ---------- */

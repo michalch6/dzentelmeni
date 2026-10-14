@@ -14,8 +14,8 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/playfair-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="img/salon-3.jpg" as="image" media="(min-width: 700px)">
-<link rel="preload" href="img/salon-3-m.jpg" as="image" media="(max-width: 699px)">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" crossorigin>
 <script>(function(d){var h=d.documentElement;h.className=h.className.replace('no-js','js');try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){h.classList.add('intro');window.__introT=setTimeout(function(){h.classList.remove('intro')},2500)}}catch(e){}})(document);</script>
 <script type="application/ld+json">
 [{"@context":"https://schema.org","@type":"HairSalon","name":"Dżentelmeni Męski Salon Fryzjerski – Słowiańska 13","description":"Męski salon fryzjerski, wizyty na zapisy.","telephone":"+48503713441","image":"img/salon-3.jpg","priceRange":"20-70 zł","address":{"@type":"PostalAddress","streetAddress":"Słowiańska 13","postalCode":"58-400","addressLocality":"Kamienna Góra","addressCountry":"PL"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"13:00"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"9.8","bestRating":"10","ratingCount":"159"}},
@@ -110,13 +110,6 @@
   .h-copy h1 em{padding-right:.05em}
   .h-copy .lead{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:44ch}
   .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
-  .mirror-col{position:relative;justify-self:center;width:min(66vw,290px);order:-1;margin-left:24px}
-  @media (min-width:600px){.mirror-col{width:min(56vw,420px)}}
-  @media (min-width:960px){.mirror-col{order:0;justify-self:end;width:min(42vw,540px);margin-left:0}}
-  .mirror{position:relative;aspect-ratio:1;border-radius:50%;padding:10px;background:conic-gradient(from 210deg,var(--gold-2),#7d6440,var(--gold),#5d4a30,var(--gold-2));box-shadow:0 40px 90px -30px rgba(0,0,0,.8)}
-  .mirror .glass{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--bg-3)}
-  .mirror .glass img{width:100%;height:100%;object-fit:cover;transform-origin:50% 60%}
-  .mirror .glass::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(70% 55% at 30% 18%,rgba(255,255,255,.18),transparent 60%);pointer-events:none}
   .badge{position:absolute;left:-12%;bottom:-4%;width:clamp(112px,26vw,176px);aspect-ratio:1;border-radius:50%;background:var(--wine);box-shadow:0 18px 40px -16px rgba(0,0,0,.8),inset 0 0 0 1px rgba(207,174,114,.45);display:grid;place-items:center}
   .badge .ring{position:absolute;inset:0;font:500 clamp(10px,1.9vw,12.5px)/1 var(--label);letter-spacing:.06em;color:var(--gold-2);text-transform:uppercase}
   .badge .ring span{position:absolute;left:50%;top:7%;height:43%;transform-origin:0 100%;white-space:pre}
@@ -200,63 +193,10 @@
   @media (hover:hover) and (pointer:fine){.addr:hover{color:var(--cream)}}
   .salons-note{margin-top:22px;color:var(--muted);font-size:15px}
 
-  /* ---------- SMS ticket ---------- */
-  .ticket{position:relative;display:grid;margin-top:60px;background:var(--cream);color:var(--ink)}
-  @media (min-width:900px){.ticket{grid-template-columns:1.25fr .75fr}}
-  .ticket::before,.ticket::after{content:"";position:absolute;width:30px;height:30px;border-radius:50%;background:var(--bg)}
-  .ticket::before{left:-15px;top:50%;margin-top:-15px}.ticket::after{right:-15px;top:50%;margin-top:-15px}
-  @media (min-width:900px){.ticket::before{left:calc(62.5% - 15px);top:-15px;margin:0}.ticket::after{right:auto;left:calc(62.5% - 15px);top:auto;bottom:-15px;margin:0}}
-  .tk-form{padding:34px 24px;display:grid;gap:24px}
-  @media (min-width:900px){.tk-form{padding:44px 46px;border-right:2px dashed rgba(20,16,18,.25)}}
-  .tk-form h3{font-size:clamp(30px,3.4vw,42px);color:var(--wine)}
-  .tk-form h3 em{color:var(--wine-2)}
-  .tk-form>p{color:#5b4c47}
-  fieldset{margin:0;padding:0;border:0;display:grid;gap:10px}
-  legend{padding:0;margin-bottom:10px;font:500 14px/1 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--wine)}
-  .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{position:relative}
-  .chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
-  .chip span{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid rgba(20,16,18,.3);font-size:15.5px;font-weight:600;color:#3a2e2b;background:#fff;transition:background .2s,border-color .2s,color .2s}
-  .chip input:checked+span{background:var(--wine);border-color:var(--wine);color:var(--cream)}
-  .chip input:focus-visible+span{outline:2px solid var(--wine);outline-offset:2px}
-  .field{display:grid;gap:8px}
-  .field label{font:500 14px/1 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--wine)}
-  .field input{min-height:50px;padding:0 14px;border:1px solid rgba(20,16,18,.3);background:#fff;color:var(--ink);font:500 16px var(--body)}
-  .field input::placeholder{color:#7a6c66}
-  .field input:focus{outline:2px solid var(--wine);outline-offset:1px}
-  .tk-stub{padding:30px 24px 34px;background:#EADFCF}.tk-sticky{display:grid;gap:16px}
-  @media (min-width:900px){.tk-stub{padding:44px 38px}}
-  @media (min-width:900px){.tk-stub{align-self:stretch}.tk-stub>*{position:relative}.tk-sticky{position:sticky;top:110px;display:grid;gap:16px}}
-  .tk-stub .kick{color:var(--wine)}
-  .sms{white-space:pre-wrap;padding:16px;background:#fff;border:1px solid rgba(20,16,18,.18);font-size:15px;line-height:1.5;color:#2c2422;min-height:150px}
-  .tk-stub .btn{background:var(--wine);border-color:var(--wine);color:var(--cream)}
-  @media (hover:hover) and (pointer:fine){.tk-stub .btn:hover{background:var(--wine-2);border-color:var(--wine-2)}}
-  .tk-stub .small{font-size:14px;color:#5b4c47}
-  .tk-stub .small a{color:var(--wine);font-weight:700}
-
-  /* ---------- gallery accordion ---------- */
-  .acc{display:flex;gap:10px;height:min(64vh,560px);perspective:1400px}
-  .acc .pn{position:relative;flex:1 1 0;min-width:0;overflow:hidden;cursor:pointer;background:var(--bg-3);transform-style:preserve-3d;outline:none;border:0;padding:0;color:inherit;text-align:left}
-  .acc .pn img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .5s}
-  .acc .pn::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(20,16,18,.85)),rgba(20,16,18,var(--dim,.35));transition:background .5s;pointer-events:none}
-  .acc .pn .cap{position:absolute;left:22px;right:22px;bottom:20px;z-index:2;display:flex;align-items:center;gap:12px;font:500 18px/1.2 var(--label);letter-spacing:.1em;text-transform:uppercase;color:var(--cream);opacity:0;transform:translateX(-12px);transition:opacity .45s,transform .45s var(--ease)}
-  .acc .pn .cap::before{content:"";width:3px;height:24px;background:var(--gold);flex:none}
-  .acc .pn.on{--dim:0}
-  .acc .pn.on .cap{opacity:1;transform:none}
-  .acc .pn:focus-visible{box-shadow:inset 0 0 0 2px var(--gold-2)}
-  @media (max-width:760px){
-    .acc{height:auto;display:grid;grid-auto-flow:column;grid-auto-columns:78%;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-inline:calc(var(--g) * -1);padding-inline:var(--g);scroll-padding-inline:var(--g);scrollbar-width:none;overscroll-behavior-x:contain;perspective:none}
-    .acc::-webkit-scrollbar{display:none}
-    .acc .pn{aspect-ratio:4/5;scroll-snap-align:start;transform:none!important}
-    .acc .pn .cap{opacity:1;transform:none}
-    .acc .pn{--dim:0}
-  }
-
   /* ---------- closing ---------- */
   .closing{position:relative;text-align:center;padding:120px 0 130px;overflow:hidden;border-top:1px solid var(--line)}
   .closing::before{content:"";position:absolute;left:50%;top:50%;width:min(900px,140vw);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(91,50,58,.5),transparent)}
   .closing .wrap{position:relative;display:grid;justify-items:center;gap:22px}
-  .closing img.logo{width:min(220px,52vw)}
   .closing h2{max-width:14ch}
   .closing .ctas{justify-content:center}
 
@@ -279,11 +219,62 @@
   .js .bar:not(.on){transform:translateY(110%)}
   @media (min-width:960px){.bar{display:none}}
 
+  /* ---------- hero 3D stage (barber pole) ---------- */
+  .stage{position:relative;justify-self:center;width:min(92vw,560px);height:min(42svh,460px);order:-1}
+  @media (min-width:960px){.stage{order:0;justify-self:end;width:100%;height:min(82svh,760px)}}
+  .stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+  .stage canvas:active{cursor:grabbing}
+  .stage::after{content:"";position:absolute;left:50%;bottom:2%;width:46%;height:7%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.65),transparent);pointer-events:none;z-index:-1}
+  .stage .badge{left:2%;bottom:6%}
+  @media (min-width:960px){.stage .badge{left:4%;bottom:10%}}
+
+  /* ---------- through the mirror (pinned, scrubbed) ---------- */
+  .through{position:relative;height:260vh}
+  .th-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center;perspective:1100px}
+  .th-mirror{position:relative;width:min(62vmin,460px);aspect-ratio:1;border-radius:50%;padding:10px;background:conic-gradient(from 210deg,var(--gold-2),#7d6440,var(--gold),#5d4a30,var(--gold-2));box-shadow:0 50px 120px -40px rgba(0,0,0,.9);transform-style:preserve-3d;will-change:transform}
+  .th-glass{width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--bg-3);position:relative}
+  .th-glass img{width:100%;height:100%;object-fit:cover;transform:scale(1.35)}
+  .th-glass::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 55% at 30% 18%,rgba(255,255,255,.2),transparent 60%),linear-gradient(180deg,transparent 55%,rgba(20,16,18,.75));pointer-events:none}
+  .th-copy{position:absolute;left:0;right:0;bottom:9svh;text-align:center;padding-inline:var(--g);display:grid;justify-items:center;gap:12px;pointer-events:none}
+  .th-copy h2{font-size:clamp(40px,7vw,96px);text-shadow:0 6px 30px rgba(0,0,0,.6)}
+  .th-copy p{max-width:40ch;color:var(--cream);text-shadow:0 2px 16px rgba(0,0,0,.8)}
+  .no-3d .through{height:auto}.no-3d .th-stick{position:relative;height:auto;padding:80px 0;gap:30px}.no-3d .th-copy{position:static}
+
+  /* ---------- price card: 3D tilt + gold glare ---------- */
+  .tilt{perspective:1600px}
+  .tilt .menu{transform-style:preserve-3d;will-change:transform}
+  .glare{position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,0%),rgba(228,203,149,.16),transparent 60%);opacity:var(--go,0);transition:opacity .4s;z-index:1}
+  .menu>*{position:relative;z-index:2}
+  .menu>.cn{position:absolute}
+
+  /* salons: big tappable number */
+  .bigtel{display:flex;align-items:center;justify-content:center;gap:12px;min-height:64px;background:var(--gold);color:var(--ink);font:500 clamp(26px,3vw,32px)/1 var(--label);letter-spacing:.06em;text-decoration:none;transition:background .25s,transform .12s var(--ease)}
+  .bigtel .ic{width:.9em;height:.9em}
+  .bigtel:active{transform:translateY(1px) scale(.985)}
+  @media (hover:hover) and (pointer:fine){.bigtel:hover{background:var(--gold-2)}}
+  .salon{transform-style:preserve-3d}
+
+  /* ---------- 3D ring gallery (pinned, scroll + drag) ---------- */
+  .ringsec{position:relative;height:300vh;border-top:1px solid var(--line)}
+  .ring-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;align-items:center;justify-items:center;padding:calc(var(--header-h) + 10px) 0 28px}
+  .ring-title{font-size:clamp(40px,6vw,72px);text-align:center;padding-inline:var(--g)}
+  .ring3d{position:relative;width:100%;height:100%;perspective:1300px;perspective-origin:50% 40%;touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none}
+  .ring3d:active{cursor:grabbing}
+  .carousel{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+  .carousel figure{position:absolute;margin:0;width:var(--pw,230px);height:calc(var(--pw,230px) * 1.32);left:calc(var(--pw,230px) / -2);top:calc(var(--pw,230px) * -.66);backface-visibility:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.9);outline:1px solid rgba(207,174,114,.4);outline-offset:-1px;-webkit-box-reflect:below 14px linear-gradient(transparent 62%,rgba(255,255,255,.22))}
+  .carousel figure img{width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+  .ring-hint{font:500 13px/1 var(--label);letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .no-3d .ringsec{height:auto}.no-3d .ring-stick{position:relative;height:auto}.no-3d .ring3d{height:auto;perspective:none;overflow-x:auto}.no-3d .carousel{position:static;width:auto;height:auto;display:flex;gap:12px;padding:0 var(--g)}.no-3d .carousel figure{position:relative;left:auto;top:auto;flex:none}.no-3d .ring-hint{display:none}
+
+  /* ---------- closing: 3D top hat ---------- */
+  .hat3d{position:relative;width:min(420px,84vw);aspect-ratio:1.1;margin-bottom:-20px}
+  .hat3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer;touch-action:pan-y}
+  footer .flogo{width:120px;margin-bottom:14px}
+
   /* ---------- motion states ---------- */
   .js [data-r]{opacity:0;transform:translateY(26px)}
   .intro .h-copy h1 .ln>span{transform:translateY(105%)}
   .intro .h-copy .lead,.intro .ctas{opacity:0}
-  .intro .mirror{clip-path:circle(0% at 50% 50%)}
   .intro .badge{opacity:0}
   @media (prefers-reduced-motion:reduce){
     .js [data-r]{opacity:1;transform:none}
@@ -307,9 +298,8 @@
       <a href="#cennik">Cennik</a>
       <a href="#salony">Salony</a>
       <a href="#galeria">Galeria</a>
-      <a href="#sms">Zapisy SMS</a>
     </nav>
-    <a class="btn" href="#salony"><svg class="ic"><use href="#i-phone"/></svg>Umów wizytę</a>
+    <a class="btn" href="#salony"><svg class="ic"><use href="#i-phone"/></svg>Zadzwoń</a>
   </div>
 </header>
 
@@ -318,21 +308,14 @@
     <div class="wrap">
       <div class="h-copy">
         <h1><span class="ln"><span>Klasyka</span></span><span class="ln"><span>spotyka</span></span><span class="ln"><span><em>nowoczesność</em></span></span></h1>
-        <p class="lead">Męski salon fryzjerski w Kamiennej Górze. Strzyżenie, broda i odsiwianie w dwóch salonach: na zapisy i bez zapisów.</p>
+        <p class="lead">Męski salon fryzjerski w Kamiennej Górze. Strzyżenie, broda i odsiwianie w dwóch salonach. Zadzwoń albo po prostu wpadnij.</p>
         <div class="ctas">
-          <a class="btn" href="#salony"><svg class="ic"><use href="#i-phone"/></svg>Umów wizytę</a>
+          <a class="btn" href="#salony"><svg class="ic"><use href="#i-phone"/></svg>Zadzwoń</a>
           <a class="btn ghost" href="#cennik">Cennik</a>
         </div>
       </div>
-      <div class="mirror-col">
-        <div class="mirror">
-          <div class="glass">
-            <picture>
-              <source media="(max-width: 699px)" srcset="img/salon-3-m.jpg">
-              <img src="img/salon-3.jpg" alt="Wnętrze salonu Dżentelmeni: dwa czarne fotele barberskie, lustro i drewniane półki" width="860" height="645" fetchpriority="high">
-            </picture>
-          </div>
-        </div>
+      <div class="stage">
+        <canvas id="pole" aria-hidden="true"></canvas>
         <div class="badge" aria-hidden="true">
           <span class="ring" data-ring="Dżentelmeni ✦ Męski salon fryzjerski ✦ Kamienna Góra ✦ "></span>
           <img class="seal" src="img/mark-white.png" alt="" width="748" height="748">
@@ -349,9 +332,28 @@
     </div>
   </section>
 
+  <section class="through" id="lustro" aria-label="Wnętrze salonu">
+    <div class="th-stick">
+      <div class="th-mirror">
+        <div class="th-glass">
+          <picture>
+            <source media="(max-width: 699px)" srcset="img/salon-1-m.jpg">
+            <img src="img/salon-1.jpg" alt="Wnętrze salonu Dżentelmeni: trzy fotele, okrągłe lustra i drewniane blaty" width="1536" height="2048" loading="lazy">
+          </picture>
+        </div>
+      </div>
+      <div class="th-copy">
+        <h2>Zajrzyj <em>przez lustro</em></h2>
+        <p>Okrągłe lustra, skórzane fotele i drewno. Tak wygląda pół godziny tylko dla Ciebie.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="sec" id="cennik">
     <div class="wrap">
+      <div class="tilt" data-tilt>
       <div class="menu" data-r>
+        <span class="glare" aria-hidden="true"></span>
         <i class="cn a"></i><i class="cn b"></i><i class="cn c"></i><i class="cn d"></i>
         <div class="menu-top">
           <span class="orn" aria-hidden="true"><svg><use href="#i-scissors"/></svg></span>
@@ -383,6 +385,7 @@
           <span><b>Trwała ondulacja</b> (loki) w salonie przy Słowiańskiej. Cenę podamy przez telefon.</span>
         </div>
       </div>
+      </div>
     </div>
   </section>
 
@@ -397,21 +400,18 @@
     <div class="wrap">
       <div class="sec-h" data-r>
         <h2>Dwa salony, <em>dwa sposoby</em></h2>
-        <p>Wolisz konkretną godzinę? Zapisz się na Słowiańską. Chcesz wpaść od razu? Przyjdź na Karola Miarki.</p>
+        <p>Wolisz konkretną godzinę? Zadzwoń na Słowiańską. Chcesz wpaść od razu? Przyjdź na Karola Miarki.</p>
       </div>
       <div class="salons">
         <article class="salon" data-r data-salon="slowianska">
           <div class="ph"><img src="img/fasada-m.jpg" srcset="img/fasada-m.jpg 800w, img/fasada.jpg 860w" sizes="(min-width: 900px) 600px, 100vw" alt="Wejście do salonu Dżentelmeni przy ulicy Słowiańskiej 13" width="860" height="645" loading="lazy"><span class="tag">Na zapisy</span></div>
           <div class="bd">
             <h3>Słowiańska 13</h3>
-            <p class="rule"><b>Umawiasz konkretną godzinę</b> i nie czekasz. Zadzwoń albo wyślij SMS.</p>
+            <p class="rule"><b>Dzwonisz i umawiasz konkretną godzinę.</b> Przychodzisz i siadasz od razu.</p>
+            <a class="bigtel" href="tel:+48503713441"><svg class="ic"><use href="#i-phone"/></svg>503 713 441</a>
             <span class="status" data-status><i></i><span>Sprawdzam godziny…</span></span>
             <ul class="hours" data-hours aria-label="Godziny otwarcia Słowiańska 13"></ul>
-            <a class="addr" href="https://www.google.com/maps/search/?api=1&query=Dżentelmeni+Słowiańska+13+Kamienna+Góra" target="_blank" rel="noopener"><svg class="ic"><use href="#i-map-pin"/></svg>Słowiańska 13, 58-400 Kamienna Góra (obok kina)</a>
-            <div class="acts">
-              <a class="btn" href="tel:+48503713441"><svg class="ic"><use href="#i-phone"/></svg>503 713 441</a>
-              <a class="btn ghost" href="#sms"><svg class="ic"><use href="#i-chat-circle-text"/></svg>Napisz SMS</a>
-            </div>
+            <a class="addr" href="https://www.google.com/maps/dir/?api=1&destination=Dżentelmeni+Słowiańska+13+Kamienna+Góra" target="_blank" rel="noopener"><svg class="ic"><use href="#i-map-pin"/></svg>Słowiańska 13, 58-400 Kamienna Góra (obok kina). Prowadź</a>
           </div>
         </article>
         <article class="salon" data-r data-salon="miarki">
@@ -419,79 +419,38 @@
           <div class="bd">
             <h3>Karola Miarki 18</h3>
             <p class="rule"><b>Wpadasz, kiedy chcesz.</b> Czekasz na pierwszy wolny fotel.</p>
+            <a class="bigtel" href="tel:+48600275014"><svg class="ic"><use href="#i-phone"/></svg>600 275 014</a>
             <span class="status" data-status><i></i><span>Sprawdzam godziny…</span></span>
             <ul class="hours" data-hours aria-label="Godziny otwarcia Karola Miarki 18"></ul>
-            <a class="addr" href="https://www.google.com/maps/search/?api=1&query=Karola+Miarki+18+Kamienna+Góra" target="_blank" rel="noopener"><svg class="ic"><use href="#i-map-pin"/></svg>Karola Miarki 18, 58-400 Kamienna Góra</a>
-            <div class="acts">
-              <a class="btn" href="tel:+48600275014"><svg class="ic"><use href="#i-phone"/></svg>600 275 014</a>
-              <a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=Karola+Miarki+18+Kamienna+Góra" target="_blank" rel="noopener"><svg class="ic"><use href="#i-map-pin"/></svg>Prowadź</a>
-            </div>
+            <a class="addr" href="https://www.google.com/maps/dir/?api=1&destination=Karola+Miarki+18+Kamienna+Góra" target="_blank" rel="noopener"><svg class="ic"><use href="#i-map-pin"/></svg>Karola Miarki 18, 58-400 Kamienna Góra. Prowadź</a>
           </div>
         </article>
       </div>
       <p class="salons-note">W środy godziny przy Karola Miarki mogą się zmieniać. Aktualne informacje są na Facebooku salonu.</p>
-
-      <form class="ticket" id="sms" data-r novalidate>
-        <div class="tk-form">
-          <h3>Zapisz się <em>SMS-em</em></h3>
-          <p>Zaznacz, czego potrzebujesz. Wiadomość do salonu przy Słowiańskiej 13 napisze się sama.</p>
-          <fieldset>
-            <legend>Usługa</legend>
-            <div class="chips" id="svc">
-              <label class="chip"><input type="checkbox" name="svc" value="strzyżenie klasyczne" checked><span>Klasyczne</span></label>
-              <label class="chip"><input type="checkbox" name="svc" value="fade"><span>Fade</span></label>
-              <label class="chip"><input type="checkbox" name="svc" value="buzz cut"><span>Buzz cut</span></label>
-              <label class="chip"><input type="checkbox" name="svc" value="broda"><span>Broda</span></label>
-              <label class="chip"><input type="checkbox" name="svc" value="odsiwianie"><span>Odsiwianie</span></label>
-              <label class="chip"><input type="checkbox" name="svc" value="trwała ondulacja"><span>Trwała ondulacja</span></label>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Kiedy</legend>
-            <div class="chips" id="day"></div>
-          </fieldset>
-          <fieldset>
-            <legend>Pora dnia</legend>
-            <div class="chips">
-              <label class="chip"><input type="radio" name="pora" value="rano" ><span>Rano</span></label>
-              <label class="chip"><input type="radio" name="pora" value="w południe"><span>W południe</span></label>
-              <label class="chip"><input type="radio" name="pora" value="po południu"><span>Po południu</span></label>
-              <label class="chip"><input type="radio" name="pora" value="obojętnie" checked><span>Obojętnie</span></label>
-            </div>
-          </fieldset>
-          <div class="field">
-            <label for="imie">Twoje imię</label>
-            <input id="imie" name="imie" type="text" autocomplete="given-name" placeholder="np. Tomek" enterkeyhint="done">
-          </div>
-        </div>
-        <div class="tk-stub"><div class="tk-sticky">
-          <span class="kick">Twoja wiadomość</span>
-          <p class="sms" id="smsText" aria-live="polite"></p>
-          <a class="btn" id="smsBtn" href="sms:+48503713441"><svg class="ic"><use href="#i-chat-circle-text"/></svg>Wyślij SMS</a>
-          <p class="small">Salon odpisze z wolną godziną. Wolisz zadzwonić? <a href="tel:+48503713441">503 713 441</a></p>
-        </div></div>
-      </form>
     </div>
   </section>
 
-  <section class="sec" id="galeria" style="padding-top:20px">
-    <div class="wrap">
-      <div class="sec-h" data-r>
-        <h2>Zajrzyj <em>do środka</em></h2>
+  <section class="ringsec" id="galeria" aria-label="Galeria">
+    <div class="ring-stick">
+      <h2 class="ring-title">Zajrzyj <em>do środka</em></h2>
+      <div class="ring3d" id="ring3d">
+        <div class="carousel" id="carousel">
+          <figure><img src="img/fryzura-1.jpg" alt="Loki po trwałej ondulacji z cieniowaniem, widok z boku" width="472" height="805" loading="lazy"></figure>
+          <figure><img src="img/salon-3-m.jpg" alt="Fotele barberskie i poczekalnia z zieloną kanapą" width="800" height="600" loading="lazy"></figure>
+          <figure><img src="img/fryzura-2.jpg" alt="Loki i fade, widok z tyłu" width="472" height="378" loading="lazy"></figure>
+          <figure><img src="img/salon-1-m.jpg" alt="Trzy stanowiska z okrągłymi lustrami" width="800" height="1066" loading="lazy"></figure>
+          <figure><img src="img/fryzura-3.jpg" alt="Gęste loki z cieniowanym karkiem" width="472" height="413" loading="lazy"></figure>
+          <figure><img src="img/salon-2-m.jpg" alt="Lustra, półki z kosmetykami i fotele" width="800" height="404" loading="lazy"></figure>
+          <figure><img src="img/fasada-m.jpg" alt="Szyld salonu przy Słowiańskiej 13" width="800" height="600" loading="lazy"></figure>
+        </div>
       </div>
-      <div class="acc" id="acc" data-r>
-        <button type="button" class="pn" aria-label="Salon przy Słowiańskiej: fotele i umywalka"><img src="img/salon-1-m.jpg" srcset="img/salon-1-m.jpg 800w, img/salon-1.jpg 1536w" sizes="(min-width: 761px) 50vw, 78vw" alt="" loading="lazy" width="1536" height="2048"><span class="cap">Trzy stanowiska</span></button>
-        <button type="button" class="pn" aria-label="Efekt: loki po trwałej ondulacji z cieniowaniem"><img src="img/fryzura-kolaz-m.jpg" srcset="img/fryzura-kolaz-m.jpg 800w, img/fryzura-kolaz.jpg 960w" sizes="(min-width: 761px) 50vw, 78vw" alt="" loading="lazy" width="960" height="805"><span class="cap">Trwała i fade</span></button>
-        <button type="button" class="pn on" aria-label="Fotele barberskie i poczekalnia z zieloną kanapą"><img src="img/salon-3-m.jpg" srcset="img/salon-3-m.jpg 800w, img/salon-3.jpg 860w" sizes="(min-width: 761px) 50vw, 78vw" alt="" loading="lazy" width="860" height="645"><span class="cap">Poczekalnia</span></button>
-        <button type="button" class="pn" aria-label="Okrągłe lustra i drewniane blaty"><img src="img/salon-2-m.jpg" srcset="img/salon-2-m.jpg 800w, img/salon-2.jpg 1600w" sizes="(min-width: 761px) 50vw, 78vw" alt="" loading="lazy" width="1600" height="809"><span class="cap">Lustra i fotele</span></button>
-        <button type="button" class="pn" aria-label="Szyld salonu przy Słowiańskiej 13"><img src="img/fasada-m.jpg" srcset="img/fasada-m.jpg 800w, img/fasada.jpg 860w" sizes="(min-width: 761px) 50vw, 78vw" alt="" loading="lazy" width="860" height="645"><span class="cap">Słowiańska 13</span></button>
-      </div>
+      <p class="ring-hint">Przeciągnij, żeby obrócić</p>
     </div>
   </section>
 
   <section class="closing" id="kontakt">
     <div class="wrap">
-      <img class="logo" src="img/logo-white.png" alt="Logo Dżentelmeni Męski Salon Fryzjerski" width="1032" height="1026" loading="lazy" data-r>
+      <div class="hat3d"><canvas id="hat" aria-hidden="true"></canvas></div>
       <h2 data-r>Do zobaczenia <em>na fotelu</em></h2>
       <div class="ctas" data-r>
         <a class="btn" href="tel:+48503713441"><svg class="ic"><use href="#i-phone"/></svg>Słowiańska 503 713 441</a>
@@ -503,7 +462,7 @@
 
 <footer>
   <div class="wrap">
-    <div><b>Dżentelmeni</b><br>Męski Salon Fryzjerski<br><a href="https://www.facebook.com/dzentelmeniKG/" target="_blank" rel="noopener">Facebook</a></div>
+    <div><img class="flogo" src="img/logo-white.png" alt="Logo Dżentelmeni Męski Salon Fryzjerski" width="1032" height="1026" loading="lazy"><a href="https://www.facebook.com/dzentelmeniKG/" target="_blank" rel="noopener">Facebook</a></div>
     <div><b>Słowiańska 13</b><br>58-400 Kamienna Góra<br>na zapisy: <a href="tel:+48503713441">503 713 441</a></div>
     <div><b>Karola Miarki 18</b><br>58-400 Kamienna Góra<br>bez zapisów: <a href="tel:+48600275014">600 275 014</a></div>
     <div class="credit"><span>© <span id="yr">2026</span> Dżentelmeni Męski Salon Fryzjerski</span><span>Strona: <a href="https://chmielewskifoto.pl" target="_blank" rel="noopener">Chmielewski Photography</a></span></div>
@@ -519,5 +478,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
 <script src="main.js" defer></script>
+<script type="module" src="three-scenes.js"></script>
 </body>
 </html>
