@@ -130,6 +130,7 @@
 
   /* ---------- section shell ---------- */
   .sec{padding:96px 0}
+  .hero + .sec{padding-top:36px}
   @media (min-width:900px){.sec{padding:130px 0}}
   .sec-h{display:grid;gap:14px;margin-bottom:46px;max-width:760px}
   .sec-h p{color:var(--muted);max-width:56ch}
@@ -199,6 +200,7 @@
   .closing .wrap{position:relative;display:grid;justify-items:center;gap:22px}
   .closing h2{max-width:14ch}
   .closing .ctas{justify-content:center}
+  @media (min-width:960px){.closing{text-align:left}.closing .wrap{grid-template-columns:minmax(0,480px) minmax(0,1fr);grid-template-areas:"g h" "g c";justify-items:start;column-gap:clamp(40px,6vw,96px)}.closing .gent3d{grid-area:g;justify-self:end;width:min(480px,100%)}.closing h2{grid-area:h;align-self:end;max-width:11ch}.closing .ctas{grid-area:c;align-self:start;justify-content:flex-start}}
 
   footer{border-top:1px solid var(--line);padding:46px 0 calc(46px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:15.5px}
   @media (max-width:959px){footer{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}}
@@ -228,20 +230,9 @@
   .stage .badge{left:2%;bottom:6%}
   @media (min-width:960px){.stage .badge{left:4%;bottom:10%}}
 
-  /* ---------- through the mirror (pinned, scrubbed) ---------- */
-  .through{position:relative;height:170vh}
-  .th-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center;perspective:1100px}
-  .th-mirror{position:relative;width:min(84vw,68vh,540px);aspect-ratio:1;border-radius:50%;padding:10px;background:conic-gradient(from 210deg,var(--gold-2),#7d6440,var(--gold),#5d4a30,var(--gold-2));box-shadow:0 50px 120px -40px rgba(0,0,0,.9);transform-style:preserve-3d;will-change:transform}
-  .th-glass{width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--bg-3);position:relative}
-  .th-glass img{width:100%;height:100%;object-fit:cover;transform:scale(1.35)}
-  .th-glass::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 55% at 30% 18%,rgba(255,255,255,.2),transparent 60%),linear-gradient(180deg,transparent 55%,rgba(20,16,18,.75));pointer-events:none}
-  .th-copy{position:absolute;left:0;right:0;bottom:9svh;text-align:center;padding-inline:var(--g);display:grid;justify-items:center;gap:12px;pointer-events:none}
-  .th-copy h2{font-size:clamp(40px,7vw,96px);text-shadow:0 6px 30px rgba(0,0,0,.6)}
-  .th-copy p{max-width:40ch;color:var(--cream);text-shadow:0 2px 16px rgba(0,0,0,.8)}
-  .no-3d .through{height:auto}.no-3d .th-stick{position:relative;height:auto;padding:80px 0;gap:30px}.no-3d .th-copy{position:static}
 
   /* ---------- price card: 3D tilt + gold glare ---------- */
-  .tilt{perspective:1600px}
+  .tilt{perspective:2800px}
   .tilt .menu{transform-style:preserve-3d;will-change:transform}
   .glare{position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,0%),rgba(228,203,149,.16),transparent 60%);opacity:var(--go,0);transition:opacity .4s;z-index:1}
   .menu>*{position:relative;z-index:2}
@@ -255,7 +246,7 @@
   .salon{transform-style:preserve-3d}
 
   /* ---------- 3D ring gallery (pinned, scroll + drag) ---------- */
-  .ringsec{position:relative;height:300vh;border-top:1px solid var(--line)}
+  .ringsec{position:relative;height:220vh;border-top:1px solid var(--line)}
   .ring-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;align-items:center;justify-items:center;padding:calc(var(--header-h) + 10px) 0 28px}
   .ring-title{font-size:clamp(40px,6vw,72px);text-align:center;padding-inline:var(--g)}
   .ring3d{position:relative;width:100%;height:100%;perspective:1300px;perspective-origin:50% 40%;touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none}
@@ -266,9 +257,10 @@
   .ring-hint{font:500 13px/1 var(--label);letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
   .no-3d .ringsec{height:auto}.no-3d .ring-stick{position:relative;height:auto}.no-3d .ring3d{height:auto;perspective:none;overflow-x:auto}.no-3d .carousel{position:static;width:auto;height:auto;display:flex;gap:12px;padding:0 var(--g)}.no-3d .carousel figure{position:relative;left:auto;top:auto;flex:none}.no-3d .ring-hint{display:none}
 
-  /* ---------- closing: 3D top hat ---------- */
+  /* ---------- closing: 3D gentleman ---------- */
   .gent3d{position:relative;width:min(460px,88vw);aspect-ratio:.86;margin-bottom:-10px}
-  .gent3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer;touch-action:pan-y}
+  .gent3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer;touch-action:pan-y;opacity:0;transition:opacity .8s ease}
+  .gent3d.no-webgl{background:url(img/mark-white.png) center 40%/58% no-repeat}.gent3d.no-webgl canvas{display:none}
   .bubble{position:absolute;left:58%;top:6%;margin:0;padding:12px 18px 13px;background:var(--cream);color:var(--wine);font:400 italic clamp(22px,3vw,30px)/1 var(--serif);white-space:nowrap;box-shadow:0 14px 30px -12px rgba(0,0,0,.7);transform-origin:0% 100%;transform:scale(0);opacity:0;pointer-events:none}
   .bubble::after{content:"";position:absolute;left:14px;bottom:-12px;border:7px solid transparent;border-top:7px solid var(--cream);border-left:7px solid var(--cream)}
   .no-3d .bubble{transform:none;opacity:1}
@@ -327,31 +319,6 @@
     </div>
   </section>
 
-  <section class="proof" aria-label="Opinie i wyróżnienia">
-    <div class="wrap">
-      <div class="pf" data-r><b><span data-count="9.8" data-dec="1">9,8</span><small>/ 10</small></b><p><strong>Średnia ocen</strong> w plebiscycie Orły Fryzjerstwa, z 159 ocen klientów.</p></div>
-      <div class="pf" data-r><b><span data-count="4">4</span><small>lata</small></b><p><strong>Laureat Orłów Fryzjerstwa</strong> w Kamiennej Górze: 2023, 2024, 2025 i 2026.</p></div>
-      <div class="pf" data-r><b><span data-count="98">98</span><small>%</small></b><p><strong>Poleca na Facebooku</strong> (28 opinii).</p></div>
-    </div>
-  </section>
-
-  <section class="through" id="lustro" aria-label="Wnętrze salonu">
-    <div class="th-stick">
-      <div class="th-mirror">
-        <div class="th-glass">
-          <picture>
-            <source media="(max-width: 699px)" srcset="img/salon-1-m.jpg">
-            <img src="img/salon-1.jpg" alt="Wnętrze salonu Dżentelmeni: trzy fotele, okrągłe lustra i drewniane blaty" width="1536" height="2048" loading="lazy">
-          </picture>
-        </div>
-      </div>
-      <div class="th-copy">
-        <h2>Zajrzyj <em>przez lustro</em></h2>
-        <p>Okrągłe lustra, skórzane fotele i drewno. Tak wygląda pół godziny tylko dla Ciebie.</p>
-      </div>
-    </div>
-  </section>
-
   <section class="sec" id="cennik">
     <div class="wrap">
       <div class="tilt" data-tilt>
@@ -389,6 +356,14 @@
         </div>
       </div>
       </div>
+    </div>
+  </section>
+
+  <section class="proof" aria-label="Opinie i wyróżnienia">
+    <div class="wrap">
+      <div class="pf" data-r><b><span data-count="9.8" data-dec="1">9,8</span><small>/ 10</small></b><p><strong>Średnia ocen</strong> w plebiscycie Orły Fryzjerstwa, z 159 ocen klientów.</p></div>
+      <div class="pf" data-r><b><span data-count="4">4</span><small>lata</small></b><p><strong>Laureat Orłów Fryzjerstwa</strong> w Kamiennej Górze: 2023, 2024, 2025 i 2026.</p></div>
+      <div class="pf" data-r><b><span data-count="98">98</span><small>%</small></b><p><strong>Poleca na Facebooku</strong> (28 opinii).</p></div>
     </div>
   </section>
 

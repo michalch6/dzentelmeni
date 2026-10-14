@@ -193,30 +193,12 @@
   const full3d = hasGsap && !reduce;
   if (!full3d) doc.classList.add('no-3d');
 
-  /* ---------- through the mirror: the round mirror tilts toward you and swallows the screen ---------- */
-  const mirror = $('.th-mirror');
-  if (mirror && full3d) {
-    const img = $('.th-glass img');
-    const copy = $('.th-copy');
-    const fill = () => {
-      const r = mirror.getBoundingClientRect();
-      const size = r.width || 1;
-      return (Math.hypot(innerWidth, innerHeight) / size) * 1.08;
-    };
-    gsap.set(mirror, { scale: 0.86, rotateX: 26, rotateY: -12, rotateZ: -4, y: 20 });
-    gsap.set(copy, { autoAlpha: 0, y: 40 });
-    gsap.timeline({ scrollTrigger: { trigger: '.through', start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true } })
-      .to(mirror, { rotateX: 0, rotateY: 0, rotateZ: 0, y: 0, scale: 1, ease: 'power2.out', duration: 0.25 })
-      .to(mirror, { scale: () => fill(), ease: 'power2.in', duration: 0.55 })
-      .to(img, { scale: 1, ease: 'none', duration: 0.8 }, 0)
-      .to(copy, { autoAlpha: 1, y: 0, ease: 'power2.out', duration: 0.18 }, 0.04);
-  }
-
   /* ---------- price card: flips up like a menu set on the table, then follows the cursor ---------- */
   const tiltWrap = $('[data-tilt]');
   if (tiltWrap && full3d) {
     const card = $('.menu', tiltWrap);
-    gsap.fromTo(card, { rotateX: 58, y: 120, transformOrigin: '50% 100%' }, { rotateX: 0, y: 0, ease: 'none', scrollTrigger: { trigger: tiltWrap, start: 'top 95%', end: 'top 35%', scrub: 0.8 } });
+    const narrow = innerWidth < 700;
+    gsap.fromTo(card, { rotateX: narrow ? 10 : 16, y: narrow ? 24 : 50, transformOrigin: '50% 0%' }, { rotateX: 0, y: 0, ease: 'none', scrollTrigger: { trigger: tiltWrap, start: 'top 100%', end: narrow ? 'top 70%' : 'top 55%', scrub: 0.6 } });
     if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
       const rx = gsap.quickTo(card, 'rotationY', { duration: 0.6, ease: 'power3' });
       const ry = gsap.quickTo(card, 'rotationX', { duration: 0.6, ease: 'power3' });
@@ -256,7 +238,7 @@
     const apply = () => { carousel.style.transform = `translateZ(${-R}px) rotateX(-8deg) rotateY(${scrollAngle + dragAngle}deg)`; };
     layout(); apply();
     addEventListener('resize', () => { layout(); apply(); });
-    ScrollTrigger.create({ trigger: '.ringsec', start: 'top top', end: 'bottom bottom', scrub: true, onUpdate: (st) => { scrollAngle = -st.progress * 400; apply(); } });
+    ScrollTrigger.create({ trigger: '.ringsec', start: 'top top', end: 'bottom bottom', scrub: true, onUpdate: (st) => { scrollAngle = -st.progress * 330; apply(); } });
     const stage = $('#ring3d');
     stage.addEventListener('pointerdown', (e) => { dragging = true; lastX = e.clientX; vel = 0; stage.setPointerCapture(e.pointerId); });
     stage.addEventListener('pointermove', (e) => { if (!dragging) return; const dx = e.clientX - lastX; lastX = e.clientX; vel = dx * 0.35; dragAngle += vel; apply(); });
