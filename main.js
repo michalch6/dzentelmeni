@@ -203,11 +203,11 @@
       const size = r.width || 1;
       return (Math.hypot(innerWidth, innerHeight) / size) * 1.08;
     };
-    gsap.set(mirror, { scale: 0.62, rotateX: 42, rotateY: -16, rotateZ: -6, y: 40 });
+    gsap.set(mirror, { scale: 0.86, rotateX: 26, rotateY: -12, rotateZ: -4, y: 20 });
     gsap.set(copy, { autoAlpha: 0, y: 40 });
     gsap.timeline({ scrollTrigger: { trigger: '.through', start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true } })
-      .to(mirror, { rotateX: 0, rotateY: 0, rotateZ: 0, y: 0, scale: 1, ease: 'power2.inOut', duration: 0.35 })
-      .to(mirror, { scale: () => fill(), ease: 'power3.in', duration: 0.45 })
+      .to(mirror, { rotateX: 0, rotateY: 0, rotateZ: 0, y: 0, scale: 1, ease: 'power2.out', duration: 0.25 })
+      .to(mirror, { scale: () => fill(), ease: 'power2.in', duration: 0.55 })
       .to(img, { scale: 1, ease: 'none', duration: 0.8 }, 0)
       .to(copy, { autoAlpha: 1, y: 0, ease: 'power2.out', duration: 0.18 }, 0.04);
   }

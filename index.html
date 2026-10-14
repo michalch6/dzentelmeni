@@ -229,9 +229,9 @@
   @media (min-width:960px){.stage .badge{left:4%;bottom:10%}}
 
   /* ---------- through the mirror (pinned, scrubbed) ---------- */
-  .through{position:relative;height:260vh}
+  .through{position:relative;height:170vh}
   .th-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center;perspective:1100px}
-  .th-mirror{position:relative;width:min(62vmin,460px);aspect-ratio:1;border-radius:50%;padding:10px;background:conic-gradient(from 210deg,var(--gold-2),#7d6440,var(--gold),#5d4a30,var(--gold-2));box-shadow:0 50px 120px -40px rgba(0,0,0,.9);transform-style:preserve-3d;will-change:transform}
+  .th-mirror{position:relative;width:min(84vw,68vh,540px);aspect-ratio:1;border-radius:50%;padding:10px;background:conic-gradient(from 210deg,var(--gold-2),#7d6440,var(--gold),#5d4a30,var(--gold-2));box-shadow:0 50px 120px -40px rgba(0,0,0,.9);transform-style:preserve-3d;will-change:transform}
   .th-glass{width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--bg-3);position:relative}
   .th-glass img{width:100%;height:100%;object-fit:cover;transform:scale(1.35)}
   .th-glass::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 55% at 30% 18%,rgba(255,255,255,.2),transparent 60%),linear-gradient(180deg,transparent 55%,rgba(20,16,18,.75));pointer-events:none}
@@ -267,8 +267,11 @@
   .no-3d .ringsec{height:auto}.no-3d .ring-stick{position:relative;height:auto}.no-3d .ring3d{height:auto;perspective:none;overflow-x:auto}.no-3d .carousel{position:static;width:auto;height:auto;display:flex;gap:12px;padding:0 var(--g)}.no-3d .carousel figure{position:relative;left:auto;top:auto;flex:none}.no-3d .ring-hint{display:none}
 
   /* ---------- closing: 3D top hat ---------- */
-  .hat3d{position:relative;width:min(420px,84vw);aspect-ratio:1.1;margin-bottom:-20px}
-  .hat3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer;touch-action:pan-y}
+  .gent3d{position:relative;width:min(460px,88vw);aspect-ratio:.86;margin-bottom:-10px}
+  .gent3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer;touch-action:pan-y}
+  .bubble{position:absolute;left:58%;top:6%;margin:0;padding:12px 18px 13px;background:var(--cream);color:var(--wine);font:400 italic clamp(22px,3vw,30px)/1 var(--serif);white-space:nowrap;box-shadow:0 14px 30px -12px rgba(0,0,0,.7);transform-origin:0% 100%;transform:scale(0);opacity:0;pointer-events:none}
+  .bubble::after{content:"";position:absolute;left:14px;bottom:-12px;border:7px solid transparent;border-top:7px solid var(--cream);border-left:7px solid var(--cream)}
+  .no-3d .bubble{transform:none;opacity:1}
   footer .flogo{width:120px;margin-bottom:14px}
 
   /* ---------- motion states ---------- */
@@ -450,7 +453,7 @@
 
   <section class="closing" id="kontakt">
     <div class="wrap">
-      <div class="hat3d"><canvas id="hat" aria-hidden="true"></canvas></div>
+      <div class="gent3d"><canvas id="gent" aria-label="Animowany dżentelmen w cylindrze kłania się i zaprasza do salonu" role="img"></canvas><p class="bubble" id="bubble" aria-hidden="true">Zapraszamy!</p></div>
       <h2 data-r>Do zobaczenia <em>na fotelu</em></h2>
       <div class="ctas" data-r>
         <a class="btn" href="tel:+48503713441"><svg class="ic"><use href="#i-phone"/></svg>Słowiańska 503 713 441</a>
