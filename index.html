@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dżentelmeni – męski salon fryzjerski w Kamiennej Górze</title>
 <meta name="description" content="Męski salon fryzjerski Dżentelmeni w Kamiennej Górze. Strzyżenie klasyczne, fade, broda i odsiwianie. Dwa salony: Słowiańska 13 (na zapisy) i Karola Miarki 18 (bez zapisów).">
-<meta name="theme-color" content="#141012">
+<meta name="theme-color" content="#0D1210">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:title" content="Dżentelmeni – męski salon fryzjerski, Kamienna Góra">
@@ -14,8 +14,6 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/playfair-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
-<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" crossorigin>
 <script>(function(d){var h=d.documentElement;h.className=h.className.replace('no-js','js');try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){h.classList.add('intro');window.__introT=setTimeout(function(){h.classList.remove('intro')},2500)}}catch(e){}})(document);</script>
 <script type="application/ld+json">
 [{"@context":"https://schema.org","@type":"HairSalon","name":"Dżentelmeni Męski Salon Fryzjerski – Słowiańska 13","description":"Męski salon fryzjerski, wizyty na zapisy.","telephone":"+48503713441","image":"img/salon-3.jpg","priceRange":"20-70 zł","address":{"@type":"PostalAddress","streetAddress":"Słowiańska 13","postalCode":"58-400","addressLocality":"Kamienna Góra","addressCountry":"PL"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"13:00"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"9.8","bestRating":"10","ratingCount":"159"}},
@@ -37,10 +35,10 @@
   @font-face{font-family:"Manrope";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/manrope-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC}
   @font-face{font-family:"Manrope";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/manrope-latin-ext-700-normal.woff2) format("woff2");unicode-range:U+0100-024F,U+1E00-1EFF}
 
-  /* Gentleman's club after hours: wine-dark room, gold hairlines from the printed price list, round mirrors from the salon. */
+  /* Barber club: bottle green from the salon sofa, brass/gold hairlines from the printed price list, graphite. */
   :root{
-    --bg:#141012;--bg-2:#1B1517;--bg-3:#241B1E;--wine:#42252A;--wine-2:#5B323A;--line:#3B2E31;
-    --gold:#CFAE72;--gold-2:#E4CB95;--cream:#F3ECE2;--muted:#C2B5A9;--ink:#141012;
+    --bg:#0D1210;--bg-2:#121A16;--bg-3:#18231E;--green:#1C3A2B;--green-2:#2B5640;--line:#26352E;
+    --gold:#CFAE72;--gold-2:#E4CB95;--cream:#F3ECE2;--muted:#B7BFB8;--ink:#0D1210;
     --pole-r:#B5363E;--pole-b:#2F4C7E;
     --serif:"Playfair Display",Georgia,"Times New Roman",serif;
     --label:"Oswald","Arial Narrow",Impact,sans-serif;
@@ -60,6 +58,12 @@
   h1,h2,h3{margin:0;font-family:var(--serif);font-weight:400;line-height:1.08;text-wrap:balance}
   h2{font-size:clamp(40px,6vw,72px)}
   em{font-style:italic;color:var(--gold-2)}
+  /* ShinyText (React Bits): a slow light sweep across the gold words */
+  h1 em,h2 em{background:linear-gradient(110deg,var(--gold) 0 40%,#FBF0D2 50%,var(--gold) 60% 100%);background-size:260% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5.5s linear infinite}
+  @keyframes shine{to{background-position:-160% 0}}
+  @media (prefers-reduced-motion:reduce){h1 em,h2 em{animation:none;background:none;color:var(--gold-2)}}
+  .spark{position:fixed;width:16px;height:2px;margin:-1px 0 0;background:var(--gold-2);transform-origin:0 50%;pointer-events:none;z-index:90;border-radius:2px}
+  .bw{display:inline-block;will-change:transform,filter}
   p{margin:0}
   .wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding-inline:var(--g)}
   .ic{width:1.15em;height:1.15em;flex:none}
@@ -77,11 +81,11 @@
 
   /* ---------- header ---------- */
   .top{position:fixed;inset:0 0 auto;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .35s,box-shadow .35s,transform .4s var(--ease)}
-  .top.solid{background:rgba(20,16,18,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+  .top.solid{background:rgba(13,18,16,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
   .top.hide{transform:translateY(-100%)}
   .top .wrap{height:var(--header-h);display:flex;align-items:center;justify-content:space-between;gap:20px}
   .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-  .brand .seal{width:42px;height:42px;border-radius:50%;background:var(--wine);display:grid;place-items:center;flex:none}
+  .brand .seal{width:42px;height:42px;border-radius:50%;background:var(--green);display:grid;place-items:center;flex:none}
   .brand .seal img{width:30px;height:30px}
   .brand b{font:400 23px/1 var(--serif);letter-spacing:.02em}
   .brand small{display:block;margin-top:4px;font:500 10.5px/1 var(--label);letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
@@ -100,8 +104,8 @@
 
   /* ---------- hero ---------- */
   .hero{position:relative;padding:calc(var(--header-h) + env(safe-area-inset-top,0px) + 18px) 0 60px;overflow:hidden}
-  .hero::before{content:"";position:absolute;inset:-20% -10% auto;height:120%;background:radial-gradient(60% 50% at 75% 35%,rgba(91,50,58,.55),transparent 70%),radial-gradient(40% 40% at 10% 90%,rgba(66,37,42,.5),transparent 70%);pointer-events:none}
-  .hero .wrap{position:relative;display:grid;gap:34px;align-items:center}
+  .hero::before{content:"";position:absolute;inset:-20% -10% auto;height:120%;background:radial-gradient(60% 50% at 75% 35%,rgba(43,86,64,.55),transparent 70%),radial-gradient(40% 40% at 10% 90%,rgba(28,58,43,.5),transparent 70%);pointer-events:none}
+  .hero .wrap{position:relative;display:grid;gap:22px;align-items:center}
   @media (min-width:960px){.hero{padding-bottom:90px;min-height:min(100svh,940px);display:flex;align-items:center}.hero .wrap{grid-template-columns:1.05fr .95fr;gap:56px}}
   .h-copy{display:grid;gap:22px;max-width:620px}
   .h-copy h1{font-size:clamp(44px,8.6vw,86px);line-height:1.04;letter-spacing:-.01em}
@@ -110,7 +114,7 @@
   .h-copy h1 em{padding-right:.05em}
   .h-copy .lead{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:44ch}
   .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
-  .badge{position:absolute;left:-12%;bottom:-4%;width:clamp(112px,26vw,176px);aspect-ratio:1;border-radius:50%;background:var(--wine);box-shadow:0 18px 40px -16px rgba(0,0,0,.8),inset 0 0 0 1px rgba(207,174,114,.45);display:grid;place-items:center}
+  .badge{position:absolute;left:-12%;bottom:-4%;width:clamp(112px,26vw,176px);aspect-ratio:1;border-radius:50%;background:var(--green);box-shadow:0 18px 40px -16px rgba(0,0,0,.8),inset 0 0 0 1px rgba(207,174,114,.45);display:grid;place-items:center}
   .badge .ring{position:absolute;inset:0;font:500 clamp(10px,1.9vw,12.5px)/1 var(--label);letter-spacing:.06em;color:var(--gold-2);text-transform:uppercase}
   .badge .ring span{position:absolute;left:50%;top:7%;height:43%;transform-origin:0 100%;white-space:pre}
   .badge .seal{width:48%;aspect-ratio:1;border-radius:50%}
@@ -196,11 +200,11 @@
 
   /* ---------- closing ---------- */
   .closing{position:relative;text-align:center;padding:120px 0 130px;overflow:hidden;border-top:1px solid var(--line)}
-  .closing::before{content:"";position:absolute;left:50%;top:50%;width:min(900px,140vw);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(91,50,58,.5),transparent)}
+  .closing::before{content:"";position:absolute;left:50%;top:50%;width:min(900px,140vw);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(43,86,64,.5),transparent)}
   .closing .wrap{position:relative;display:grid;justify-items:center;gap:22px}
   .closing h2{max-width:14ch}
   .closing .ctas{justify-content:center}
-  @media (min-width:960px){.closing{text-align:left}.closing .wrap{grid-template-columns:minmax(0,480px) minmax(0,1fr);grid-template-areas:"g h" "g c";justify-items:start;column-gap:clamp(40px,6vw,96px)}.closing .gent3d{grid-area:g;justify-self:end;width:min(480px,100%)}.closing h2{grid-area:h;align-self:end;max-width:11ch}.closing .ctas{grid-area:c;align-self:start;justify-content:flex-start}}
+  @media (min-width:960px){.closing{text-align:left}.closing .wrap{grid-template-columns:minmax(0,480px) minmax(0,1fr);grid-template-areas:"g h" "g c";justify-items:start;column-gap:clamp(40px,6vw,96px)}.closing .gent-end{grid-area:g;justify-self:end;width:min(400px,100%)}.closing h2{grid-area:h;align-self:end;max-width:11ch}.closing .ctas{grid-area:c;align-self:start;justify-content:flex-start}}
 
   footer{border-top:1px solid var(--line);padding:46px 0 calc(46px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:15.5px}
   @media (max-width:959px){footer{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}}
@@ -212,7 +216,7 @@
   footer .credit{grid-column:1/-1;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:14px}
 
   /* ---------- mobile call bar ---------- */
-  .bar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 10px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(20,16,18,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);transition:transform .4s var(--ease)}
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 10px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(13,18,16,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);transition:transform .4s var(--ease)}
   .bar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;text-decoration:none;background:var(--bg-3);border:1px solid var(--line);-webkit-user-select:none;user-select:none}
   .bar a:first-child{background:var(--gold);border-color:var(--gold);color:var(--ink)}
   .bar a b{display:flex;align-items:center;gap:7px;font:500 16px/1 var(--label);letter-spacing:.1em;text-transform:uppercase}
@@ -221,14 +225,25 @@
   .js .bar:not(.on){transform:translateY(110%)}
   @media (min-width:960px){.bar{display:none}}
 
-  /* ---------- hero 3D stage (barber pole) ---------- */
-  .stage{position:relative;justify-self:center;width:min(92vw,560px);height:min(42svh,460px);order:-1}
-  @media (min-width:960px){.stage{order:0;justify-self:end;width:100%;height:min(82svh,760px)}}
-  .stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
-  .stage canvas:active{cursor:grabbing}
-  .stage::after{content:"";position:absolute;left:50%;bottom:2%;width:46%;height:7%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.65),transparent);pointer-events:none;z-index:-1}
-  .stage .badge{left:2%;bottom:6%}
-  @media (min-width:960px){.stage .badge{left:4%;bottom:10%}}
+  /* ---------- the gentleman from the logo (flat, layered: hat tips, body bows) ---------- */
+  .stage{position:relative;justify-self:center;width:min(66vw,330px);order:-1}
+  @media (min-width:960px){.stage{order:0;justify-self:end;width:min(100%,560px)}}
+  .stage .badge{position:relative;left:auto;bottom:auto;width:100%;background:none;box-shadow:none}
+  .stage .badge .ring{font-size:clamp(12px,2.6vw,19px);letter-spacing:.14em;color:var(--gold)}
+  .stage .badge .ring span{top:0;height:50%}
+  .disc{position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle at 34% 28%,#FFFDF8,#F1EADC 60%,#DED2BC);box-shadow:0 0 0 3px var(--gold),0 0 0 11px var(--bg),0 0 0 12px rgba(207,174,114,.35),0 50px 100px -40px rgba(0,0,0,.9);cursor:pointer}
+  .disc::after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(115deg,transparent 35%,rgba(207,174,114,.28) 48%,transparent 60%);background-size:250% 100%;background-position:120% 0;pointer-events:none;animation:sheen 6s var(--ease) 2.4s infinite}
+  @keyframes sheen{0%{background-position:120% 0}35%,100%{background-position:-60% 0}}
+  .disc img{position:absolute;left:-1%;top:-.2%;width:102.2%;height:102.8%;max-width:none;-webkit-user-drag:none;user-select:none}
+  .g-body{transform-origin:50% 100%}
+  .g-hat{transform-origin:50% 22%}
+  .gent-end{position:relative;width:min(320px,72vw);aspect-ratio:1;margin-bottom:6px}
+  .gent-end .disc{inset:0}
+  .bubble{position:absolute;left:64%;top:-6%;margin:0;padding:12px 18px 13px;background:var(--cream);color:var(--green);font:400 italic clamp(22px,3vw,30px)/1 var(--serif);white-space:nowrap;box-shadow:0 14px 30px -12px rgba(0,0,0,.7);transform-origin:0% 100%;transform:scale(0);opacity:0;pointer-events:none;z-index:2}
+  .bubble::after{content:"";position:absolute;left:14px;bottom:-12px;border:7px solid transparent;border-top:7px solid var(--cream);border-left:7px solid var(--cream)}
+  .bubble{outline:1px solid var(--gold);outline-offset:-5px}
+  .no-3d .bubble{transform:none;opacity:1}
+  @media (max-width:520px){.bubble{left:auto;right:-4%;top:-12%}}
 
 
   /* ---------- price card: 3D tilt + gold glare ---------- */
@@ -257,13 +272,6 @@
   .ring-hint{font:500 13px/1 var(--label);letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
   .no-3d .ringsec{height:auto}.no-3d .ring-stick{position:relative;height:auto}.no-3d .ring3d{height:auto;perspective:none;overflow-x:auto}.no-3d .carousel{position:static;width:auto;height:auto;display:flex;gap:12px;padding:0 var(--g)}.no-3d .carousel figure{position:relative;left:auto;top:auto;flex:none}.no-3d .ring-hint{display:none}
 
-  /* ---------- closing: 3D gentleman ---------- */
-  .gent3d{position:relative;width:min(460px,88vw);aspect-ratio:.86;margin-bottom:-10px}
-  .gent3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer;touch-action:pan-y;opacity:0;transition:opacity .8s ease}
-  .gent3d.no-webgl{background:url(img/mark-white.png) center 40%/58% no-repeat}.gent3d.no-webgl canvas{display:none}
-  .bubble{position:absolute;left:58%;top:6%;margin:0;padding:12px 18px 13px;background:var(--cream);color:var(--wine);font:400 italic clamp(22px,3vw,30px)/1 var(--serif);white-space:nowrap;box-shadow:0 14px 30px -12px rgba(0,0,0,.7);transform-origin:0% 100%;transform:scale(0);opacity:0;pointer-events:none}
-  .bubble::after{content:"";position:absolute;left:14px;bottom:-12px;border:7px solid transparent;border-top:7px solid var(--cream);border-left:7px solid var(--cream)}
-  .no-3d .bubble{transform:none;opacity:1}
   footer .flogo{width:120px;margin-bottom:14px}
 
   /* ---------- motion states ---------- */
@@ -310,10 +318,9 @@
         </div>
       </div>
       <div class="stage">
-        <canvas id="pole" aria-hidden="true"></canvas>
-        <div class="badge" aria-hidden="true">
-          <span class="ring" data-ring="Dżentelmeni ✦ Męski salon fryzjerski ✦ Kamienna Góra ✦ "></span>
-          <img class="seal" src="img/mark-white.png" alt="" width="748" height="748">
+        <div class="badge" data-gent>
+          <span class="ring" aria-hidden="true" data-ring="Dżentelmeni ✦ Męski salon fryzjerski ✦ Kamienna Góra ✦ "></span>
+          <div class="disc" role="img" aria-label="Dżentelmen z logo salonu uchyla cylindra"><img class="g-body" src="img/gent-body.png" alt="" width="748" height="748"><img class="g-hat" src="img/gent-hat.png" alt="" width="748" height="748"></div>
         </div>
       </div>
     </div>
@@ -428,7 +435,7 @@
 
   <section class="closing" id="kontakt">
     <div class="wrap">
-      <div class="gent3d"><canvas id="gent" aria-label="Animowany dżentelmen w cylindrze kłania się i zaprasza do salonu" role="img"></canvas><p class="bubble" id="bubble" aria-hidden="true">Zapraszamy!</p></div>
+      <div class="gent-end" data-gent data-bow><div class="disc" role="img" aria-label="Dżentelmen z logo kłania się i zaprasza"><img class="g-body" src="img/gent-body.png" alt="" width="748" height="748" loading="lazy"><img class="g-hat" src="img/gent-hat.png" alt="" width="748" height="748" loading="lazy"></div><p class="bubble" id="bubble" aria-hidden="true">Zapraszamy!</p></div>
       <h2 data-r>Do zobaczenia <em>na fotelu</em></h2>
       <div class="ctas" data-r>
         <a class="btn" href="tel:+48503713441"><svg class="ic"><use href="#i-phone"/></svg>Słowiańska 503 713 441</a>
@@ -456,6 +463,5 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
 <script src="main.js" defer></script>
-<script type="module" src="three-scenes.js"></script>
 </body>
 </html>

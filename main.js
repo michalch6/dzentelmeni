@@ -247,6 +247,80 @@
     gsap.ticker.add(() => { if (!dragging && Math.abs(vel) > 0.02) { vel *= 0.94; dragAngle += vel; apply(); } });
   }
 
+  /* ---------- the gentleman from the logo: tips his hat; at the end of the page he bows and says "Zapraszamy!" ---------- */
+  $$('[data-gent]').forEach((g) => {
+    const hat = $('.g-hat', g), body = $('.g-body', g), bubble = $('.bubble', g), bows = g.hasAttribute('data-bow');
+    if (!hasGsap || reduce || !hat) return;
+    let tl = null;
+    const play = () => {
+      if (tl && tl.isActive()) return;
+      tl = gsap.timeline();
+      tl.to(hat, { yPercent: -11, rotate: -10, duration: 0.42, ease: 'power2.out' });
+      if (bows) {
+        tl.to(hat, { xPercent: 20, yPercent: 30, rotate: 28, scale: 0.86, duration: 0.55, ease: 'power2.inOut' })
+          .to(body, { scaleY: 0.94, scaleX: 1.02, duration: 0.55, ease: 'power2.inOut' }, '<')
+          .add(() => { if (bubble) gsap.to(bubble, { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(2)' }); }, '-=0.15')
+          .to({}, { duration: 0.9 })
+          .to(body, { scaleY: 1, scaleX: 1, duration: 0.5, ease: 'power2.out' })
+          .to(hat, { xPercent: 0, yPercent: -9, rotate: -6, scale: 1, duration: 0.5, ease: 'power2.inOut' }, '<')
+          .to(hat, { yPercent: 0, rotate: 0, duration: 0.45, ease: 'back.out(2.2)' })
+          .add(() => { if (bubble) gsap.to(bubble, { scale: 0, opacity: 0, duration: 0.35, delay: 1.4 }); });
+      } else {
+        tl.to(hat, { rotate: -16, xPercent: 3, duration: 0.3, ease: 'sine.inOut' }, '+=0.25')
+          .to(hat, { yPercent: 0, xPercent: 0, rotate: 0, duration: 0.55, ease: 'back.out(2.4)' });
+      }
+    };
+    g.addEventListener('click', play);
+    g.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') play(); });
+    if (bows) ScrollTrigger.create({ trigger: g, start: 'top 70%', onEnter: () => setTimeout(play, 250), onEnterBack: play });
+    else { setTimeout(play, 1900); setInterval(() => { if (!document.hidden && g.getBoundingClientRect().bottom > 0) play(); }, 7000); }
+  });
+
+  /* ---------- BlurText (React Bits): section headings arrive word by word out of a blur ---------- */
+  if (hasGsap && !reduce) {
+    const splitWords = (el) => {
+      [...el.childNodes].forEach((n) => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach((w) => {
+            if (!w) return;
+            if (/^\s+$/.test(w)) { frag.appendChild(document.createTextNode(w)); return; }
+            const s = document.createElement('span'); s.className = 'bw'; s.textContent = w; frag.appendChild(s);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && n.tagName === 'EM') { n.classList.add('bw'); }
+        else if (n.nodeType === 1) splitWords(n);
+      });
+    };
+    $$('#cennik h2, .sec-h h2, .ring-title, .closing h2').forEach((h) => {
+      splitWords(h);
+      gsap.from($$('.bw', h), { opacity: 0, filter: 'blur(12px)', y: -18, duration: 0.9, ease: 'power3.out', stagger: 0.12, scrollTrigger: { trigger: h, start: 'top 85%', once: true } });
+    });
+  }
+
+  /* ---------- Magnet (React Bits): call buttons lean toward the cursor ---------- */
+  if (hasGsap && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    $$('.hero .btn, .closing .btn').forEach((b) => {
+      const mx = gsap.quickTo(b, 'x', { duration: 0.5, ease: 'power3' }), my = gsap.quickTo(b, 'y', { duration: 0.5, ease: 'power3' });
+      b.addEventListener('pointermove', (e) => { const r = b.getBoundingClientRect(); mx((e.clientX - r.left - r.width / 2) * 0.3); my((e.clientY - r.top - r.height / 2) * 0.4); });
+      b.addEventListener('pointerleave', () => { mx(0); my(0); });
+    });
+  }
+
+  /* ---------- ClickSpark (React Bits): gold sparks where you tap a call button ---------- */
+  if (hasGsap && !reduce) {
+    document.addEventListener('pointerdown', (e) => {
+      if (!e.target.closest('.btn, .bigtel, .bar a')) return;
+      for (let i = 0; i < 8; i++) {
+        const s = document.createElement('i'); s.className = 'spark';
+        s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px';
+        document.body.appendChild(s);
+        const a = (i / 8) * 360;
+        gsap.fromTo(s, { rotate: a, x: 0, scaleX: 0.2, opacity: 1 }, { x: Math.cos(a * Math.PI / 180) * 30, y: Math.sin(a * Math.PI / 180) * 30, scaleX: 1, opacity: 0, duration: 0.5, ease: 'power2.out', onComplete: () => s.remove() });
+      }
+    }, { passive: true });
+  }
+
   /* ---------- mobile call bar ---------- */
   const bar = $('.bar');
   if (bar) {
