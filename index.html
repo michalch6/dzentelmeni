@@ -85,8 +85,8 @@
   .top.hide{transform:translateY(-100%)}
   .top .wrap{height:var(--header-h);display:flex;align-items:center;justify-content:space-between;gap:20px}
   .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-  .brand .seal{width:42px;height:42px;border-radius:50%;background:var(--wine);display:grid;place-items:center;flex:none}
-  .brand .seal img{width:30px;height:30px}
+  .brand .seal{position:relative;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#FFFDF8,#F1EADC 60%,#DED2BC);box-shadow:0 0 0 2px var(--gold);flex:none;overflow:hidden}
+  .brand .seal img{position:absolute;inset:0;width:100%;height:100%}
   .brand b{font:400 23px/1 var(--serif);letter-spacing:.02em}
   .brand small{display:block;margin-top:4px;font:500 10.5px/1 var(--label);letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
   .nav{display:none;align-items:center;gap:30px}
@@ -294,7 +294,7 @@
 <header class="top" id="top">
   <div class="wrap">
     <a class="brand" href="#start" aria-label="Dżentelmeni – początek strony">
-      <span class="seal"><img src="img/mark-white.png" alt="" width="748" height="748"></span>
+      <span class="seal"><img src="img/gent-body.png" alt="" width="748" height="748"><img src="img/gent-hat.png" alt="" width="748" height="748"></span>
       <span><b>Dżentelmeni</b><small>Męski salon fryzjerski</small></span>
     </a>
     <nav class="nav" aria-label="Menu">
