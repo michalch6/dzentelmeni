@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dżentelmeni – męski salon fryzjerski w Kamiennej Górze</title>
 <meta name="description" content="Męski salon fryzjerski Dżentelmeni w Kamiennej Górze. Strzyżenie klasyczne, fade, broda i odsiwianie. Dwa salony: Słowiańska 13 (na zapisy) i Karola Miarki 18 (bez zapisów).">
-<meta name="theme-color" content="#0D1210">
+<meta name="theme-color" content="#0A101C">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:title" content="Dżentelmeni – męski salon fryzjerski, Kamienna Góra">
@@ -35,10 +35,10 @@
   @font-face{font-family:"Manrope";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/manrope-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC}
   @font-face{font-family:"Manrope";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/manrope-latin-ext-700-normal.woff2) format("woff2");unicode-range:U+0100-024F,U+1E00-1EFF}
 
-  /* Barber club: bottle green from the salon sofa, brass/gold hairlines from the printed price list, graphite. */
+  /* Barber club: deep navy with burgundy touches (the logo colour), gold hairlines from the printed price list. */
   :root{
-    --bg:#0D1210;--bg-2:#121A16;--bg-3:#18231E;--green:#1C3A2B;--green-2:#2B5640;--line:#26352E;
-    --gold:#CFAE72;--gold-2:#E4CB95;--cream:#F3ECE2;--muted:#B7BFB8;--ink:#0D1210;
+    --bg:#0A101C;--bg-2:#0F1828;--bg-3:#152136;--green:#1E3358;--green-2:#2E4C80;--wine:#5E2833;--line:#223049;
+    --gold:#CFAE72;--gold-2:#E4CB95;--cream:#F3ECE2;--muted:#B3BCCB;--ink:#0A101C;
     --pole-r:#B5363E;--pole-b:#2F4C7E;
     --serif:"Playfair Display",Georgia,"Times New Roman",serif;
     --label:"Oswald","Arial Narrow",Impact,sans-serif;
@@ -81,11 +81,11 @@
 
   /* ---------- header ---------- */
   .top{position:fixed;inset:0 0 auto;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .35s,box-shadow .35s,transform .4s var(--ease)}
-  .top.solid{background:rgba(13,18,16,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+  .top.solid{background:rgba(10,16,28,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
   .top.hide{transform:translateY(-100%)}
   .top .wrap{height:var(--header-h);display:flex;align-items:center;justify-content:space-between;gap:20px}
   .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-  .brand .seal{width:42px;height:42px;border-radius:50%;background:var(--green);display:grid;place-items:center;flex:none}
+  .brand .seal{width:42px;height:42px;border-radius:50%;background:var(--wine);display:grid;place-items:center;flex:none}
   .brand .seal img{width:30px;height:30px}
   .brand b{font:400 23px/1 var(--serif);letter-spacing:.02em}
   .brand small{display:block;margin-top:4px;font:500 10.5px/1 var(--label);letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
@@ -104,7 +104,7 @@
 
   /* ---------- hero ---------- */
   .hero{position:relative;padding:calc(var(--header-h) + env(safe-area-inset-top,0px) + 18px) 0 60px;overflow:hidden}
-  .hero::before{content:"";position:absolute;inset:-20% -10% auto;height:120%;background:radial-gradient(60% 50% at 75% 35%,rgba(43,86,64,.55),transparent 70%),radial-gradient(40% 40% at 10% 90%,rgba(28,58,43,.5),transparent 70%);pointer-events:none}
+  .hero::before{content:"";position:absolute;inset:-20% -10% auto;height:120%;background:radial-gradient(60% 50% at 75% 35%,rgba(46,76,128,.55),transparent 70%),radial-gradient(40% 40% at 10% 90%,rgba(94,40,51,.5),transparent 70%);pointer-events:none}
   .hero .wrap{position:relative;display:grid;gap:22px;align-items:center}
   @media (min-width:960px){.hero{padding-bottom:90px;min-height:min(100svh,940px);display:flex;align-items:center}.hero .wrap{grid-template-columns:1.05fr .95fr;gap:56px}}
   .h-copy{display:grid;gap:22px;max-width:620px}
@@ -200,7 +200,7 @@
 
   /* ---------- closing ---------- */
   .closing{position:relative;text-align:center;padding:120px 0 130px;overflow:hidden;border-top:1px solid var(--line)}
-  .closing::before{content:"";position:absolute;left:50%;top:50%;width:min(900px,140vw);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(43,86,64,.5),transparent)}
+  .closing::before{content:"";position:absolute;left:50%;top:50%;width:min(900px,140vw);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(46,76,128,.5),transparent)}
   .closing .wrap{position:relative;display:grid;justify-items:center;gap:22px}
   .closing h2{max-width:14ch}
   .closing .ctas{justify-content:center}
@@ -216,7 +216,7 @@
   footer .credit{grid-column:1/-1;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:14px}
 
   /* ---------- mobile call bar ---------- */
-  .bar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 10px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(13,18,16,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);transition:transform .4s var(--ease)}
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 10px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(10,16,28,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);transition:transform .4s var(--ease)}
   .bar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;text-decoration:none;background:var(--bg-3);border:1px solid var(--line);-webkit-user-select:none;user-select:none}
   .bar a:first-child{background:var(--gold);border-color:var(--gold);color:var(--ink)}
   .bar a b{display:flex;align-items:center;gap:7px;font:500 16px/1 var(--label);letter-spacing:.1em;text-transform:uppercase}
@@ -239,7 +239,7 @@
   .g-hat{transform-origin:50% 22%}
   .gent-end{position:relative;width:min(320px,72vw);aspect-ratio:1;margin-bottom:6px}
   .gent-end .disc{inset:0}
-  .bubble{position:absolute;left:64%;top:-6%;margin:0;padding:12px 18px 13px;background:var(--cream);color:var(--green);font:400 italic clamp(22px,3vw,30px)/1 var(--serif);white-space:nowrap;box-shadow:0 14px 30px -12px rgba(0,0,0,.7);transform-origin:0% 100%;transform:scale(0);opacity:0;pointer-events:none;z-index:2}
+  .bubble{position:absolute;left:64%;top:-6%;margin:0;padding:12px 18px 13px;background:var(--cream);color:var(--wine);font:400 italic clamp(22px,3vw,30px)/1 var(--serif);white-space:nowrap;box-shadow:0 14px 30px -12px rgba(0,0,0,.7);transform-origin:0% 100%;transform:scale(0);opacity:0;pointer-events:none;z-index:2}
   .bubble::after{content:"";position:absolute;left:14px;bottom:-12px;border:7px solid transparent;border-top:7px solid var(--cream);border-left:7px solid var(--cream)}
   .bubble{outline:1px solid var(--gold);outline-offset:-5px}
   .no-3d .bubble{transform:none;opacity:1}
